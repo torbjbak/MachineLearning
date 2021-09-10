@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-DATA_SET_SIZE = 100
 W_init = np.array([[8.5], [8.5]]).astype(float).reshape(-1, 1)
 b_init = np.array([[-4.0]]).astype(float)
 lr = 0.0001

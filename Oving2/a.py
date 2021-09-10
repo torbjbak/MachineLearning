@@ -2,8 +2,6 @@ import torch as tr
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-DATA_SET_SIZE = 100
 W_init = np.array([[8.5]])
 b_init = np.array([[-4.0]])
 lr = 0.0001

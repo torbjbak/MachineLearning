@@ -2,8 +2,8 @@ import torch as tr
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-DATA_SET_SIZE = 100
+lr = 0.0001
+epochs = 10000
 W1_init = np.array([[10, -10], [10, -10]]).astype(float)
 b1_init = np.array([[-5, 15]]).astype(float)
 W2_init = np.array([[10], [10]]).astype(float)
@@ -13,9 +13,6 @@ b2_init = np.array([[-15]]).astype(float)
 b1_init = np.array([[0, 0]]).astype(float)
 W2_init = np.array([[0], [0]]).astype(float)
 b2_init = np.array([[0]]).astype(float) """
-
-lr = 0.0001
-epochs = 10000
 
 class SigmoidModel:
     def __init__(self, W1=W1_init.copy(), W2=W2_init.copy(), b1=b1_init.copy(), b2=b2_init.copy()):
@@ -44,13 +41,13 @@ model = SigmoidModel()
 in_train = tr.tensor(np.array([[0, 0], [0, 1], [1, 0], [1, 1]]).astype(float))
 out_train = tr.tensor(np.array([[0], [1], [1], [0]]).astype(float))
 
-opt = tr.optim.Adam([model.W1, model.W2, model.b1, model.b2], lr)
+opt = tr.optim.SGD([model.W1, model.W2, model.b1, model.b2], lr)
 for epoch in range(epochs):
     model.loss(in_train, out_train).backward()
     opt.step()
     opt.zero_grad()
 
-print("Learning rate = %f\nEpochs = %i\nW1 =\n%s\nW2 =\n%s\nb1 = %s\nb1 = %f\nLoss = %f" % (
+print("Learning rate = %f\nEpochs = %i\nW1 =\n%s\nW2 =\n%s\nb1 = %s\nb2 = %f\nLoss = %f" % (
     lr, 
     epochs, 
     model.W1.data.numpy(),
