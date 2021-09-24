@@ -78,20 +78,20 @@ y_train = torch.tensor([
 model = LongShortTermMemoryModel(encoding_size)
 
 optimizer = torch.optim.RMSprop(model.parameters(), 0.0005)
-for epoch in range(5000):
+for epoch in range(2000):
     model.reset()
     model.loss(x_train, y_train).backward()
     optimizer.step()
     optimizer.zero_grad()
 
-    if epoch % 20 == 19:
+    if epoch % 30 == 29:
         # Generate characters from the initial characters ' h'
         model.reset()
         text = ' h'
         model.f(torch.tensor([[char_encodings[0]]]))
         y = model.f(torch.tensor([[char_encodings[1]]]))
         #text += index_to_char[y.argmax(1)]
-        for c in range(50):
+        for c in range(len(y_train) - 2):
             y = model.f(torch.tensor([[char_encodings[y.argmax(1)]]]))
             text += index_to_char[y.argmax(1)]
         print("Accuracy: %f | %s" % (model.accuracy(x_train, y_train).item(), text))
