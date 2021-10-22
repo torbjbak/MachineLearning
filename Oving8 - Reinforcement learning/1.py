@@ -25,12 +25,11 @@ def get_discrete_state(state):
     discrete_state = state / np_array_win_size + np.array([15, 10, 1, 10])
     return tuple(discrete_state.astype(np.int_))
 
-for episode in range(episodes + 1): #go through the episodes
-    #get the discrete start for the restarted environment
+for episode in range(episodes + 1):
     reset = env.reset()
     discrete_state = get_discrete_state(reset) 
     done = False
-    episode_reward = 0 #reward starts as 0 for each episode
+    episode_reward = 0
     max_reward = 0
 
     if episode % UPDATE_EVERY == 0 and episode > 0: 
@@ -39,9 +38,9 @@ for episode in range(episodes + 1): #go through the episodes
     while not done: 
 
         if np.random.random() > epsilon:
-            action = np.argmax(q_table[discrete_state]) #take cordinated action
+            action = np.argmax(q_table[discrete_state])
         else:
-            action = np.random.randint(0, env.action_space.n) #do a random ation
+            action = np.random.randint(0, env.action_space.n)
  
         #step action to get new states, reward, and the "done" status.
         new_state, reward, done, _ = env.step(action)
